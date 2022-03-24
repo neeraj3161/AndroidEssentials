@@ -1,0 +1,31 @@
+   hello.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onClick(View view) {
+                //requesting the permission when necessary
+                if (ContextCompat.checkSelfPermission(
+                        MainActivity.this, Manifest.permission.READ_CALL_LOG) == PackageManager.PERMISSION_GRANTED){
+                    Toast.makeText(MainActivity.this, "Permission granted", Toast.LENGTH_SHORT).show();
+
+                }else if (shouldShowRequestPermissionRationale(Manifest.permission.READ_CALL_LOG)){
+                    Toast.makeText(MainActivity.this, "It's required mf grant it!!", Toast.LENGTH_SHORT).show();
+                    requestPermissionLauncher.launch(Manifest.permission.READ_CALL_LOG);
+                }else{
+                    //you can directly ask for permission
+                    requestPermissionLauncher.launch(Manifest.permission.READ_CALL_LOG);
+                }
+
+            }
+        });
+    }
+
+    //handling the permission response
+    private ActivityResultLauncher<String> requestPermissionLauncher=registerForActivityResult(new ActivityResultContracts.RequestPermission(),isGranted->{
+        if(isGranted){
+            //app permission is granted continue with workflow
+
+        } else{
+            //explain the user why the feature is unavailable without the permission
+
+        }
+    });
