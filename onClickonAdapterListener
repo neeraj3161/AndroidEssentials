@@ -1,0 +1,42 @@
+ itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    String name = birthday_list.get(position).getName();
+                    String dob = birthday_list.get(position).getDob();
+                    String ph_no = birthday_list.get(position).getPh_no().trim();
+                    String surname = birthday_list.get(position).getSurname();
+
+                    String msg="";
+
+                    whats_app.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            String Url="https://wa.me/91"+ph_no+"?text="+msg;
+                            Intent i = new Intent(Intent.ACTION_SENDTO, Uri.parse(Url));
+                            view.getContext().startActivity(Intent.createChooser(i,"Choose Browser"));
+                        }
+                    });
+
+                    phone.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent i = new Intent(Intent.ACTION_DIAL,Uri.parse("tel:"+ph_no));
+                            view.getContext().startActivity(i);
+                        }
+                    });
+
+                    message.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent i = new Intent(Intent.ACTION_SENDTO,Uri.parse("smsto:"+ph_no));
+                            i.putExtra("sms_body",msg);
+                            view.getContext().startActivity(i);
+                        }
+                    });
+
+                }
+            });
+
+
+        }
