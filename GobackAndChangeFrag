@@ -1,0 +1,23 @@
+//change frag
+
+FragmentTransaction fr = getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in,R.anim.fade_out,R.anim.slide_in,R.anim.fade_out);
+                fr.replace(R.id.fragment_container,new today_due());
+                fr.commit();
+
+
+//go back
+
+ @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                FragmentTransaction fr = getActivity().getSupportFragmentManager().beginTransaction();
+                fr.replace(R.id.fragment_container,new Home());
+                fr.commit();
+            }
+        };
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(callback);
+    }
